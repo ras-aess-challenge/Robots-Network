@@ -54,16 +54,19 @@ class Executor:
         return nearest
 
     def scan_for_nodes(self, node_list):
+        readings = []
         for node in node_list:
             distance = math.hypot(node.x - self.x, node.y - self.y)
             if distance <= self.read_range:
-                self.read_node(node)
+                readings.append(self.read_node(node))
+        return readings
 
     def read_node(self, node):
         decayed_pod = node.current_pod()
         print(f"[{self.executor_id}] Read {node.node_id} — "
               f"event: {node.event}, PoD: {decayed_pod:.3f} "
               f"(initial: {node.pod}), coords: ({node.x:.1f}, {node.y:.1f})")
+        return {**node.read(), "current_pod": decayed_pod}
 
 
 if __name__ == "__main__":

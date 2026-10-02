@@ -1,7 +1,10 @@
+import os
 import hmac
 import hashlib
 
-SHARED_SECRET = b"tsyp14-living-map-secret-change-me"
+SHARED_SECRET = os.environ.get("SHARED_SECRET", "").encode("utf-8")
+if len(SHARED_SECRET) < 32:
+    raise ValueError("SHARED_SECRET must contain at least 32 UTF-8 bytes")
 
 MSG_TYPE_BEACON = 0x01
 MSG_TYPE_MISSION_REQUEST = 0x02
