@@ -4,8 +4,9 @@ import time
 EVENT_CODES = {
     "NONE": 0,
     "VICTIM": 1,
-    "HAZARD": 2,
-    "DEBRIS": 3,
+    "FIRE": 2,      
+    "HAZARD": 3,
+    "DEBRIS": 4,
 }
 EVENT_NAMES = {code: name for name, code in EVENT_CODES.items()}
 
