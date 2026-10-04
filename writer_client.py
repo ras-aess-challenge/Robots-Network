@@ -25,14 +25,23 @@ def send_node(node):
 
 def run_writer():
     writer = Writer("WRITER_1")
-    writer.move_to(x=15, y=0, event="VICTIM", pod=0.9)
+    print("[WRITER] Deploying into unknown zone...")
+    
+    # Event 1: Drop a Victim tag
+    writer.move_to(x=10.5, y=0, event="VICTIM", pod=0.95)
+    
+    # Event 2: Drop a Fire tag 5 meters later
+    writer.move_to(x=15.5, y=2.0, event="FIRE", pod=0.85)
+
     if not writer.dropped_nodes:
         raise RuntimeError("No beacon was dropped")
-    # Preserve the existing demonstration, which produces one beacon at (10.5, 0).
-    node_id = send_node(writer.dropped_nodes[0])
-    print(f"[WRITER] Scan completed; beacon {node_id} confirmed in network storage")
+        
+    # Send both to the ONA (Simulating the 5m Strong Node burst)
+    for node in writer.dropped_nodes:
+        node_id = send_node(node)
+        print(f"[WRITER] Scan completed; beacon {node_id} confirmed in network storage")
+        
     return node_id
-
 
 if __name__ == "__main__":
     run_writer()
