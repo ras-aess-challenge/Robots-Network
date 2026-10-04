@@ -15,13 +15,15 @@ class Executor:
         self.y = y
         print(f"[{self.executor_id}] Moved to ({x}, {y})")
 
-    def navigate_to(self, target_x, target_y, step_delay=0.3):
+    def navigate_to(self, target_x, target_y, step_delay=0.3, should_cancel=None):
         """Moves step by step toward (target_x, target_y) at self.speed per step,
         printing progress — simulates real navigation instead of teleporting."""
         print(f"[{self.executor_id}] Navigating from ({self.x:.1f}, {self.y:.1f}) "
               f"toward ({target_x:.1f}, {target_y:.1f})")
 
         while True:
+            if should_cancel and should_cancel():
+                raise RuntimeError("Mission cancelled")
             dx = target_x - self.x
             dy = target_y - self.y
             distance_remaining = math.hypot(dx, dy)
