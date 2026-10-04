@@ -37,9 +37,15 @@ def run_writer():
         raise RuntimeError("No beacon was dropped")
         
     # Send both to the ONA (Simulating the 5m Strong Node burst)
+    # Send both to the ONA
     for node in writer.dropped_nodes:
         node_id = send_node(node)
         print(f"[WRITER] Scan completed; beacon {node_id} confirmed in network storage")
+    
+    # SIMULATE CATASTROPHIC ATTRITION
+    print("\n[!] CRITICAL FAILURE: Structural collapse detected.")
+    writer.die()
+    print("[!] Writer robot lost. Map and memory survive via Stigmergic CRDT mesh.\n")
         
     return node_id
 
