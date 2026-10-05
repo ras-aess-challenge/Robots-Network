@@ -19,7 +19,7 @@ class FullSystemTests(unittest.TestCase):
         self.assertEqual(len(mission), 1)
         beacon = mission[0]
         self.assertEqual((beacon["x"], beacon["y"], beacon["event"]), (10.5, 0, "VICTIM"))
-        self.assertAlmostEqual(beacon["pod"], 0.9, places=6)
+        self.assertAlmostEqual(beacon["pod"], 0.95, places=6)
         self.assertIn("lat", beacon)
         self.assertIn("lon", beacon)
         self.assertIn(beacon["node_id"], writer.stdout)
